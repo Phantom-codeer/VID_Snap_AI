@@ -2,14 +2,22 @@ from flask import Flask, render_template, request
 import uuid
 from werkzeug.utils import secure_filename
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 UPLOAD_FOLDER = 'user_uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+# Ensure upload folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app = Flask(__name__, 
            template_folder='../frontend/templates',
            static_folder='../frontend/static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100MB max file size
  
 
 @app.route("/")
