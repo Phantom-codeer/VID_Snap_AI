@@ -6,7 +6,9 @@ import os
 UPLOAD_FOLDER = 'user_uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-app = Flask(__name__)
+app = Flask(__name__, 
+           template_folder='../frontend/templates',
+           static_folder='../frontend/static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
  
 
@@ -45,7 +47,7 @@ def create():
 
 @app.route("/gallery")
 def gallery():
-    reels = os.listdir("static/reels")
+    reels = os.listdir("../frontend/static/reels")
     print(reels)
     return render_template("gallery.html", reels=reels)
 
